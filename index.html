@@ -57,9 +57,14 @@
     }
 
     .logo-webex {
-        width: 45px;
-        height: 45px;
-      }
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+      margin: 0;
+      flex-shrink: 0;
+    }
 
     .logo-rectangular {
       width: 130px;
@@ -218,6 +223,11 @@
         height: 90px;
       }
 
+      .logo-webex {
+        width: 60px;
+        height: 60px;
+      }
+
       .logo-rectangular {
         width: 100px;
       }
@@ -262,7 +272,7 @@
       <!-- Columna derecha: Logo Cisco NetAcad + Logo WebEx -->
       <div class="logo-column">
         <img src="imagenes/cisco-netacad.png" alt="Cisco Networking Academy" class="logo logo-right">
-        <img src="imagenes/webex.png" alt="Cisco WebEx" class="logo logo-webex">
+        <img src="imagenes/webex.png" alt="Cisco WebEx" class="logo-webex">
       </div>
     </div>
 
@@ -284,7 +294,7 @@
 
             <!-- Enlace pegado a la base de la imagen que abre el Google Doc -->
             <a href="https://drive.google.com/file/d/1W1hVMZyY7tBZFoIw4WgAaClLuPm5v9Aw/view?usp=sharing" target="_blank" class="doc-link">
-              📄 Diapositivas
+              📄 Contenido de la Clase
             </a>
           </div>
         </td>
