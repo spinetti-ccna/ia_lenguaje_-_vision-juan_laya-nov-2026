@@ -1,312 +1,250 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Curso de Fundamentos de la Inteligencia Artificial [IA] - Instructor Juan Laya</title>
-  <link rel="icon" href="imagenes/favicon_ia.ico" type="image/x-icon" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fundamentos de la IA: Lenguaje, Visión y Acción | Prof. Juan Laya, Dr.</title>
+  
+  <!-- Google Fonts: Editorial Serif & Clean Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS 3.4.17 -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              cream: '#F8F6F0',
+              paper: '#FFFFFF',
+              dark: '#0D1527',
+              darkMuted: '#1E2A44',
+              gold: '#B58900',
+              goldHover: '#8C6D1F',
+              emerald: '#134E3F',
+              cisco: '#005073',
+              ibm: '#0F62FE',
+              border: '#E3DDD3'
+            }
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  
   <style>
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(135deg, #1e3a8a, #60a5fa);
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      color: #fff;
-    }
-
-    .container {
-      max-width: 900px;
-      width: 100%;
-      background: #fff;
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    }
-
-    .header-content {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: nowrap;
-      text-align: center;
-      padding-bottom: 20px;
-      border-bottom: 2px solid #e5e7eb;
-    }
-
-    .logo-column {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      flex-shrink: 0;
-    }
-
-    .logo {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      object-fit: cover;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      margin: 0;
-      flex-shrink: 0;
-    }
-
-    .logo-focus {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      object-fit: cover;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-      margin: 0;
-      flex-shrink: 0;
-    }
-
-    .logo-rectangular {
-      width: 130px;
-      height: auto;
-      border-radius: 50px;
-      overflow: hidden;
-      object-fit: contain;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      background: #ffffff;
-      padding: 6px;
-      box-sizing: border-box;
-    }
-
-    .header-text {
-      flex: 1;
-      padding: 10px;
-    }
-
-    .header-text h1 {
-      margin: 0;
-      font-size: 28px;
-      color: #1e3a8a;
-    }
-
-    .header-text h2, .header-text h3 {
-      margin: 8px 0;
-      font-size: 18px;
-      color: #1e3a8a;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #f8fafc;
-      border-radius: 12px;
-      overflow: hidden;
-      margin-top: 20px;
-    }
-
-    th, td {
-      padding: 16px 12px;
-      font-size: 14px;
-      border-bottom: 1px solid #e0e0e0;
-      text-align: center;
-    }
-
-    th {
-      background: #1e3a8a;
-      color: #fff;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .video-block {
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      max-width: 500px;
-      width: 100%;
-    }
-
-    .thumbnail-container {
-      position: relative;
-      display: inline-block;
-    }
-    
-    .thumbnail-container img {
-      width: 100%;
-      max-width: 500px;
-      height: auto;
-      border-radius: 8px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .thumbnail-container img:hover {
-      transform: scale(1.1);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    }
-
-    .play-button {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(30, 58, 138, 0.85);
-      color: #fff;
-      padding: 10px 18px;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: bold;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
-
-    .thumbnail-container:hover .play-button {
-      opacity: 1;
-    }
-
-    /* Enlace pegado debajo de la imagen */
-    .doc-link {
-      display: block;
-      width: 100%;
-      box-sizing: border-box;
-      background: #1e3a8a;
-      color: #ffffff;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: bold;
-      padding: 10px 12px;
-      border-radius: 0 0 8px 8px;
-      letter-spacing: 0.3px;
-      transition: background-color 0.2s ease;
-      margin-top: -4px; /* Elimina cualquier separación diminuta con la imagen */
-    }
-
-    .doc-link:hover {
-      background: #2563eb;
-      text-decoration: none;
-    }
-
-    tr:nth-child(even) {
-      background: #f1f5f9;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 12px;
-      color: #666;
-    }
-
-    footer a {
-      color: #1e3a8a;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 768px) {
-      .header-content {
-        flex-direction: column;
-        align-items: center;
-        gap: 16px;
-      }
-
-      .logo-column {
-        flex-direction: row;
-        gap: 16px;
-      }
-
-      .logo {
-        width: 80px;
-        height: 80px;
-      }
-
-      .logo-focus {
-        width: 80px;
-        height: 80px;
-      }
-
-      .logo-rectangular {
-        width: 130px;
-      }
-
-      .header-text h1 {
-        font-size: 22px;
-      }
-
-      .header-text h2, .header-text h3 {
-        font-size: 16px;
-      }
-
-      th, td {
-        font-size: 12px;
-        padding: 10px 6px;
-      }
-
-      .doc-link {
-        font-size: 13px;
-        padding: 8px 10px;
-      }
-    }
+    @keyframes orbitRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes counterRotate { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+    .animate-orbit { animation: orbitRotate 30s linear infinite; }
+    .animate-counter { animation: counterRotate 30s linear infinite; }
+    .orbit-pause:hover .animate-orbit,
+    .orbit-pause:hover .animate-counter { animation-play-state: paused; }
   </style>
 </head>
-<body>
-  <div class="container">
-    <div class="header-content">
-      <!-- Columna izquierda: Foto del instructor + Logo IBM SkillsBuild -->
-      <div class="logo-column">
-        <img src="imagenes/juan_laya.jpeg" alt="Instructor Juan Laya" class="logo logo-left">
-        <img src="imagenes/ibm-skillsbuild.png" alt="IBM SkillsBuild" class="logo-rectangular">
-      </div>
 
-      <div class="header-text">
-        <h1>Fundamentos de la [IA] Inteligencia Artificial</h1>
-        <h1>Lenguaje ✳ Visión ✳ Acción</h1>
-        <h2>Inicio: 02 de Noviembre de 2026</h2>
-        <h2>Horario: Lunes y Miércoles | 6:30 p.m. - 8:30 p.m.</h2>
-        <h1>Instructor Juan Laya</h1>
-      </div>
+<body class="bg-brand-cream text-[#2D3748] font-sans antialiased min-h-screen">
 
-      <!-- Columna derecha: Logo Cisco NetAcad + Logo WebEx -->
-      <div class="logo-column">
-        <img src="imagenes/cisco-netacad.png" alt="Cisco Networking Academy" class="logo logo-right">
-        <img src="imagenes/focus-logo.jpg" alt="Cisco WebEx" class="logo-focus">
+  <!-- Top bar -->
+  <header class="bg-brand-dark text-white text-xs py-2 px-4 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-brand-gold/20 text-brand-gold border border-brand-gold/40">
+          ECOSISTEMA IA 360°
+        </span>
+        <span class="text-gray-300">Certificación Oficial · Noviembre 2026</span>
+      </div>
+      <div class="flex items-center gap-4 text-gray-300 text-[11px]">
+        <a href="https://jlaya.com" target="_blank" rel="noopener noreferrer" class="hover:text-brand-gold">Sitio Oficial jlaya.com ↗</a>
+        <a href="mailto:juanvlaya@gmail.com" class="hover:text-brand-gold">juanvlaya@gmail.com</a>
       </div>
     </div>
+  </header>
 
-    <table>
-      <tr>
-        <th>Vista Previa</th>
-      </tr>
+  <!-- Hero principal -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+    <section class="relative rounded-3xl bg-brand-paper border border-brand-border p-6 sm:p-10 lg:p-12 shadow-sm">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        
+        <div class="lg:col-span-7 space-y-5 text-left">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-brand-ibm border border-blue-200">IBM SkillsBuild</span>
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-cyan-50 text-brand-cisco border border-cyan-200">Cisco Networking Academy</span>
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">FOCUS Capacitación</span>
+          </div>
 
-      <tr>
-        <td>
-          <div class="video-block">
-            <!-- Reproductor del video -->
-            <!-- <a href="https://drive.google.com/file/d/15hwVtvt_4hj3pCtDjLGPQre4bn1z7hoq/preview" target="_blank" class="thumbnail-container"> -->
-            <a href="https://www.youtube.com/playlist?list=PLfKiRQ1C5bYs" target="_blank" class="thumbnail-container">
-              <!-- <img src="https://lh3.googleusercontent.com/d/1ZbKNizJsFGI90jydOjtBOw4RWq_9m024" alt="Vista previa"> -->
-              <img src="https://img.youtube.com/vi/gJJnR51Ix3g/maxresdefault.jpg" alt="Vista previa">
-              <span class="play-button">Ver Clase</span>
+          <h1 class="text-3xl sm:text-5xl font-serif font-bold text-brand-dark leading-tight">
+            Fundamentos de la <span class="text-brand-gold italic">[IA]</span> Inteligencia Artificial
+          </h1>
+          
+          <div class="flex items-center gap-3 text-xl font-serif text-brand-emerald font-semibold">
+            <span>Lenguaje</span>
+            <span class="text-brand-gold">✦</span>
+            <span class="italic">Visión</span>
+            <span class="text-brand-gold">✦</span>
+            <span>Acción</span>
+          </div>
+          
+          <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
+            Aprende cómo los sistemas contemporáneos de IA leen, comprenden y ven el mundo real para transformar procesos cognitivos en ejecución práctica bajo el marco metodológico del <strong>Sistema IA 360°</strong>.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-4 rounded-2xl bg-brand-cream border border-brand-border">
+            <div>
+              <p class="text-[11px] font-mono uppercase text-gray-500 font-semibold">Inicio</p>
+              <p class="text-sm font-bold text-brand-dark">02 de Noviembre de 2026</p>
+            </div>
+            <div>
+              <p class="text-[11px] font-mono uppercase text-gray-500 font-semibold">Horario</p>
+              <p class="text-sm font-bold text-brand-dark">Lunes y Miércoles · 6:30 p.m. – 8:30 p.m.</p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-3 pt-2">
+            <a href="#visor-diapositivas" class="px-6 py-3 rounded-xl bg-brand-dark text-white font-medium text-sm hover:bg-brand-darkMuted transition">
+              Ver Diapositivas de la Sesión →
             </a>
-
-            <!-- Enlace pegado a la base de la imagen que abre el Google Doc -->
-            <a href="https://drive.google.com/file/d/1W1hVMZyY7tBZFoIw4WgAaClLuPm5v9Aw/view?usp=sharing" target="_blank" class="doc-link">
-              📄 Diapositivas
+            <a href="https://wa.me/584145567271" target="_blank" rel="noopener noreferrer" class="px-4 py-3 rounded-xl border border-brand-border bg-white text-gray-700 font-medium text-sm hover:text-brand-emerald transition">
+              Consultas por WhatsApp
             </a>
           </div>
-        </td>
-      </tr>
-    </table>
+        </div>
 
-    <footer>
-      <p>Curso de Fundamentos de la [IA] Inteligencia Artificial - impartido por el Instructor Juan Laya | Contacto:
-        <a href="mailto:juanvlaya@gmail.com">juanvlaya@gmail.com</a>
-      </p>
-    </footer>
-  </div>
+        <!-- Widget Orbital 360° -->
+        <div class="lg:col-span-5 flex flex-col items-center justify-center text-center">
+          <div class="relative w-72 h-72 flex items-center justify-center orbit-pause">
+            <div class="absolute inset-0 rounded-full border border-dashed border-brand-border flex items-center justify-center">
+              <span class="absolute top-1 text-[10px] font-mono text-gray-400">0°</span>
+              <span class="absolute right-1 text-[10px] font-mono text-gray-400">90°</span>
+              <span class="absolute bottom-1 text-[10px] font-mono text-gray-400">180°</span>
+              <span class="absolute left-1 text-[10px] font-mono text-gray-400">270°</span>
+            </div>
+
+            <div class="absolute inset-3 rounded-full border border-brand-gold/30 animate-orbit pointer-events-none">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-white border border-brand-border px-2 py-0.5 rounded-full text-[10px] font-mono font-bold animate-counter">Mentor</div>
+              <div class="absolute top-1/2 -right-4 -translate-y-1/2 bg-white border border-brand-border px-2 py-0.5 rounded-full text-[10px] font-mono font-bold text-brand-gold animate-counter">Speaker</div>
+              <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-white border border-brand-border px-2 py-0.5 rounded-full text-[10px] font-mono font-bold text-brand-emerald animate-counter">Arquitecto IA</div>
+              <div class="absolute top-1/2 -left-4 -translate-y-1/2 bg-white border border-brand-border px-2 py-0.5 rounded-full text-[10px] font-mono font-bold animate-counter">Consultor</div>
+            </div>
+
+            <div class="w-48 h-48 rounded-full bg-brand-dark flex flex-col items-center justify-center text-white border-2 border-brand-gold shadow-xl">
+              <div class="w-14 h-14 rounded-full bg-brand-gold flex items-center justify-center text-brand-dark text-xl font-serif font-bold mb-1">JL</div>
+              <h3 class="font-serif font-bold text-sm">Prof. Juan Laya</h3>
+              <p class="text-[10px] text-brand-gold font-mono">Ph.D. ×2 · Computación & Educación</p>
+            </div>
+          </div>
+          <p class="text-xs font-mono text-gray-500 mt-3">30+ Años Enseñando · 3.000+ Profesionales</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Visor de Diapositivas interactivo -->
+    <section id="visor-diapositivas" class="space-y-4">
+      <div class="rounded-2xl bg-brand-dark text-white overflow-hidden shadow-2xl">
+        <div class="px-4 py-3 border-b border-white/10 flex items-center justify-between text-xs">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-brand-gold/20 text-brand-gold font-mono font-bold">SESIÓN 1</span>
+            <span class="text-gray-300">Cómo la IA lee, entiende y ve el mundo real</span>
+          </div>
+          <div class="font-mono text-gray-400">
+            Lámina <span id="current-slide-num" class="text-brand-gold font-bold">1</span> / 5
+          </div>
+        </div>
+
+        <div id="slide-stage" class="min-h-[360px] p-8 flex flex-col justify-center bg-gradient-to-br from-[#0F172A] to-[#0A0F1D]">
+          <!-- Se inyecta dinámicamente con JS -->
+        </div>
+
+        <div class="px-6 py-4 border-t border-white/10 flex items-center justify-between text-xs">
+          <span class="font-mono text-gray-400">Prof. Juan Laya · IBM SkillsBuild · Cisco Academy · FOCUS</span>
+          <div class="flex gap-2">
+            <button id="btn-prev" class="px-3 py-1.5 rounded bg-white/10 hover:bg-white/20 text-white transition">Anterior</button>
+            <button id="btn-next" class="px-3 py-1.5 rounded bg-brand-gold text-brand-dark font-bold hover:bg-brand-goldHover hover:text-white transition">Siguiente</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const slides = [
+      {
+        title: "Cómo la IA lee, entiende y ve el mundo real",
+        sub: "De la decodificación simbólica a la interpretación perceptual",
+        items: [
+          "El lenguaje humano como espacio vectorial y probabilístico.",
+          "La visión computacional: transformar fotones en conceptos.",
+          "Alianza oficial: IBM SkillsBuild, Cisco Academy y FOCUS."
+        ]
+      },
+      {
+        title: "El Paradigma: De la Curiosidad a la Arquitectura",
+        sub: "Sistema IA 360° para entornos profesionales",
+        items: [
+          "Nivel 1: Prompting empírico y táctico.",
+          "Nivel 2: Metodología estratégica ROEFU-PROM8™.",
+          "Nivel 3: Arquitectura e integración empresarial LAYA-7™."
+        ]
+      },
+      {
+        title: "Comprensión de Lenguaje en LLMs",
+        sub: "Mecánica de atención en transformadores (Transformers)",
+        items: [
+          "Tokenización y embeddings semánticos multidimensionales.",
+          "Autoatención: cómo las palabras ponderan su contexto.",
+          "Ventana de contexto y recuperación aumentada (RAG)."
+        ]
+      },
+      {
+        title: "Visión Artificial: De Píxeles a Decisiones",
+        sub: "Convolución y Vision Transformers (ViT)",
+        items: [
+          "Extracción jerárquica de características visuales.",
+          "Modelos multimodales nativos: conectar imagen y texto.",
+          "Casos en redes, ciberseguridad e inspección técnica."
+        ]
+      },
+      {
+        title: "De la Percepción a la Acción Autónoma",
+        sub: "Agentes que ejecutan procesos de negocio",
+        items: [
+          "Llamadas a funciones (Function Calling) y APIs.",
+          "Supervisión humana en el bucle (HITL) para gobernanza.",
+          "Desarrollo del proyecto integrador final de la certificación."
+        ]
+      }
+    ];
+
+    let current = 0;
+    const stage = document.getElementById('slide-stage');
+    const num = document.getElementById('current-slide-num');
+
+    function update() {
+      const s = slides[current];
+      num.innerText = current + 1;
+      stage.innerHTML = `
+        <div class="space-y-4 max-w-3xl">
+          <span class="text-xs font-mono text-brand-gold uppercase tracking-wider font-bold">Lámina 0${current + 1}</span>
+          <h2 class="text-3xl font-serif font-bold text-white">${s.title}</h2>
+          <p class="text-sm font-serif italic text-brand-gold">${s.sub}</p>
+          <ul class="space-y-2 pt-2 text-sm text-gray-300">
+            ${s.items.map(i => `<li class="flex items-center gap-2"><span class="text-brand-emerald">✓</span> ${i}</li>`).join('')}
+          </ul>
+        </div>
+      `;
+    }
+
+    document.getElementById('btn-prev').onclick = () => { if (current > 0) { current--; update(); } };
+    document.getElementById('btn-next').onclick = () => { if (current < slides.length - 1) { current++; update(); } };
+    update();
+  </script>
 </body>
 </html>
